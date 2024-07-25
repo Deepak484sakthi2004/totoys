@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .slider-container {
+            margin-top: 20px;
+        }
+
+        .slider-label {
+            margin-right: 10px;
+        }
+
+        .slider {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Main Page</h1>
+        <div class="slider-container">
+            <span class="slider-label">English:</span>
+            <input type="range" min="1" max="10" value="5" class="slider" id="englishSlider">
+            <span id="englishValue">5</span>
+        </div>
+        <div class="slider-container">
+            <span class="slider-label">Maths:</span>
+            <input type="range" min="1" max="10" value="5" class="slider" id="mathsSlider">
+            <span id="mathsValue">5</span>
+        </div>
+        <div class="slider-container">
+            <span class="slider-label">Science:</span>
+            <input type="range" min="1" max="10" value="5" class="slider" id="scienceSlider">
+            <span id="scienceValue">5</span>
+        </div>
+        <div class="slider-container">
+            <span class="slider-label">Social Science:</span>
+            <input type="range" min="1" max="10" value="5" class="slider" id="socialScienceSlider">
+            <span id="socialScienceValue">5</span>
+        </div>
+        <div>
+            <button id="audioPageButton" class="button">Audio Page</button>
+            <button id="qaPageButton" class="button">Q/A Section</button>
+        </div>
+    </div>
+
+    <script>
+    window.onload = function() {
+        var englishSlider = document.getElementById('englishSlider');
+        var mathsSlider = document.getElementById('mathsSlider');
+        var scienceSlider = document.getElementById('scienceSlider');
+        var socialScienceSlider = document.getElementById('socialScienceSlider');
+        var englishValue = document.getElementById('englishValue');
+        var mathsValue = document.getElementById('mathsValue');
+        var scienceValue = document.getElementById('scienceValue');
+        var socialScienceValue = document.getElementById('socialScienceValue');
+        
+        englishSlider.oninput = function() {
+            englishValue.innerHTML = this.value;
+        };
+        mathsSlider.oninput = function() {
+            mathsValue.innerHTML = this.value;
+        };
+        scienceSlider.oninput = function() {
+            scienceValue.innerHTML = this.value;
+        };
+        socialScienceSlider.oninput = function() {
+            socialScienceValue.innerHTML = this.value;
+        };
+
+        document.getElementById('audioPageButton').onclick = function() {
+            var url = `/audio?english=${englishSlider.value}&maths=${mathsSlider.value}&science=${scienceSlider.value}&socialScience=${socialScienceSlider.value}`;
+            window.location.href = url;
+        };
+
+        document.getElementById('qaPageButton').onclick = function() {
+            var url = `/qa?english=${englishSlider.value}&maths=${mathsSlider.value}&science=${scienceSlider.value}&socialScience=${socialScienceSlider.value}`;
+            window.location.href = url;
+        };
+    };
+    </script>
+</body>
+</html>

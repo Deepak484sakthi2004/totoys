@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        #audioIcon {
+            cursor: pointer;
+            width: 50px;
+            height: auto;
+            padding-right: 50px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #processedText, #relevantDocs {
+            margin-top: 20px;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+
+        #qaSection {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Home Page</h1>
+        <div>
+            <button id="audioPageButton" class="button">Audio Page</button>
+            <button id="qaPageButton" class="button">Q/A Section</button>
+        </div>
+    </div>
+
+    <div id="qaSection">
+        <input type="text" id="questionInput" placeholder="Enter your question here">
+        <button id="submitQuestionButton" class="button">Submit</button>
+    </div>
+
+
+    <script>
+    window.onload = function() {
+        var audioPageButton = document.getElementById('audioPageButton');
+        var qaPageButton = document.getElementById('qaPageButton');
+        var qaSection = document.getElementById('qaSection');
+        var submitQuestionButton = document.getElementById('submitQuestionButton');
+        var questionInput = document.getElementById('questionInput');
+        var qaResponse = document.getElementById('qaResponse');
+
+        audioPageButton.onclick = function() {
+            window.location.href = '/audio';  // Update this URL to match the actual audio page route
+        };
+
+        qaPageButton.onclick = function() {
+            qaSection.style.display = 'block';
+        };
+
+        submitQuestionButton.onclick = function() {
+            var question = questionInput.value;
+            if (question) {
+                // Fetch response from your backend or API
+                fetch('/qa', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: question })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    qaResponse.innerHTML = `<h2>Response:</h2><p>${data.response}</p>`;
+                })
+                .catch(error => {
+                    console.error('Error processing question:', error);
+                });
+            }
+        };
+    };
+    </script>
+</body>
+</html>
